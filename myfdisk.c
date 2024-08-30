@@ -67,6 +67,7 @@ int main(int argc, char **argv) {
     printf("%-10s%-6s %-6s %-10s %-10s %-10s %-10s %-6s %-6s\n", "Device", "No.", "Boot", "Start", "End", "Sectors", "Size(MB)", "Id", "Type");
 
     int partition_index = 1;
+    int logical_partition_index = 5;  // Start logical partitions at index 5
 
     for (int i = 0; i < 4; i++) {
         if (table_entry_ptr[i].lba != 0) {
@@ -76,7 +77,7 @@ int main(int argc, char **argv) {
             if (table_entry_ptr[i].partition_type == 0x05 || // CHS extended partition
                 table_entry_ptr[i].partition_type == 0x0F || // LBA extended partition
                 table_entry_ptr[i].partition_type == 0x85) { // Linux extended
-                parse_ebr(fd, argv[1], table_entry_ptr[i].lba, &partition_index);
+                parse_ebr(fd, argv[1], table_entry_ptr[i].lba, &logical_partition_index);
             }
         }
     }
