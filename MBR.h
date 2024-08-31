@@ -11,6 +11,9 @@
 #include <stdlib.h>
 
 #define SECTOR_SIZE 512
+#define CHS_EXTENDED_PARTITION      0x05
+#define LBA_EXTENDED_PARTITION      0x0F
+#define LINUX_EXTENDED_PARTITION    0x85  
 
 typedef struct {
     uint8_t status;

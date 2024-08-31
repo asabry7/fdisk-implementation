@@ -9,11 +9,13 @@
 #include <inttypes.h>
 #include <string.h>
 
-#define SECTOR_SIZE 512
-#define GPT_HEADER_LBA 1
-#define GPT_ENTRY_ARRAY_LBA 2
-#define GPT_ENTRY_SIZE 128
-#define GPT_ENTRIES_NUM 128
+#define SECTOR_SIZE                 512
+#define GPT_HEADER_LBA              1
+#define GPT_ENTRY_ARRAY_LBA         2
+#define GPT_ENTRY_SIZE              128
+#define GPT_ENTRIES_NUM             128
+
+#define GPT_TYPE_STRING_LENGTH      36
 
 
 typedef struct {
@@ -26,7 +28,17 @@ typedef struct {
 } GPT_PartitionEntry;
 
 
-// void GPT_print_size(uint64_t size_in_sectors);
+typedef struct {
+    const char *guid_prefix;
+    const char *name;
+} GPT_PartitionType;
+
+
+
+
+void convert_guid_to_string(const unsigned char *guid, char *guid_str);
+
+const char* get_partition_type(const char *type_guid);
 
 void GPT_print_partition_info(const char *device, int index, GPT_PartitionEntry *entry);
 
