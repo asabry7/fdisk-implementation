@@ -82,9 +82,11 @@ void MBR_print_partition_info(const char *device, int index, MBR_PartitionEntry 
            MBR_get_partition_type(entry->partition_type));  
 }
 
-void MBR_parse_ebr(int fd, const char *device, uint32_t CurrentPartition_LBA, int *index) {
+void MBR_parse_ebr(int fd, const char *device, uint32_t First_EBR_LBA, int *index) {
     char buf[SECTOR_SIZE];
     MBR_PartitionEntry *entry;
+
+    uint32_t CurrentPartition_LBA = First_EBR_LBA;
 
     while (CurrentPartition_LBA != 0) 
     {
@@ -102,7 +104,7 @@ void MBR_parse_ebr(int fd, const char *device, uint32_t CurrentPartition_LBA, in
         if (entry[1].lba != 0) 
         {
             /* Move the LBA to the next EBR */
-            CurrentPartition_LBA = CurrentPartition_LBA + entry[1].lba;
+            CurrentPartition_LBA = First_EBR_LBA + entry[1].lba;
         } 
         
         else 

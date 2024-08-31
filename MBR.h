@@ -30,6 +30,6 @@ void MBR_print_size(uint64_t size_in_sectors);
 
 void MBR_print_partition_info(const char *device, int index, MBR_PartitionEntry *entry, uint32_t base_lba);
 
-void MBR_parse_ebr(int fd, const char *device, uint32_t ebr_lba, int *index);
+void MBR_parse_ebr(int fd, const char *device, uint32_t First_EBR_LBA, int *index);
 
 #endif
